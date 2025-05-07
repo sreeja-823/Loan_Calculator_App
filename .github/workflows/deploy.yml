@@ -3,7 +3,7 @@ name: Build and Deploy to Azure Container App
 on:
   push:
     branches:
-      - master  # Trigger on push to the 'master' branch (replace 'main' with 'master')
+      - master  # Triggers on push to the 'master' branch
 
 jobs:
   build-and-deploy:
@@ -16,10 +16,10 @@ jobs:
       - name: Azure Login
         uses: azure/login@v1.6.1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}  # Using the AZURE_CREDENTIALS secret to log in
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Log in to Azure Container Registry (ACR)
-        run: az acr login --name ${{ secrets.ACR_NAME }}  # Ensure ACR_NAME is set in GitHub secrets
+        run: az acr login --name ${{ secrets.ACR_NAME }}
 
       - name: Build Docker image
         run: docker build -t ${{ secrets.ACR_NAME }}.azurecr.io/loanapp:latest .
@@ -29,10 +29,13 @@ jobs:
 
       - name: Deploy to Azure Container App
         run: |
-          az containerapp update \
+          az containerapp create \
             --name loanapp \
             --resource-group loanapp \
-            --image ${{ secrets.ACR_NAME }}.azurecr.io/loanapp:latest
+            --image ${{ secrets.ACR_NAME }}.azurecr.io/loanapp:latest \
             --environment my-react-app-env \
-
-
+            --ingress external \
+            --target-port 3000 \
+            --registry-server ${{ secrets.ACR_NAME }}.azurecr.io \
+            --registry-username ${{ secrets.ACR_USERNAME }} \
+            --registry-password ${{ secrets.ACR_PASSWORD }}
