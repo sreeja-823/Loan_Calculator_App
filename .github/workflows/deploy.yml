@@ -30,7 +30,7 @@ jobs:
       - name: Deploy to Azure Container App
         run: |
           az containerapp create \
-            --name my-react-app-env \
+            --name loanapp \
             --resource-group loanapp \
             --image ${{ secrets.ACR_NAME }}.azurecr.io/loanapp:latest \
             --environment my-react-app-env \
