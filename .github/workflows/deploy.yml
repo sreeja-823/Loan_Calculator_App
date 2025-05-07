@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main  # You can replace 'main' with any branch you use for deployment
+ 
 
 jobs:
   build-and-deploy:
