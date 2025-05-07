@@ -36,5 +36,6 @@ jobs:
             --ingress external \
             --target-port 3000 \
             --registry-server ${{ secrets.ACR_NAME }}.azurecr.io \
+            --environment my-react-app-env \
             --registry-username ${{ secrets.ACR_USERNAME }} \
             --registry-password ${{ secrets.ACR_PASSWORD }}
