@@ -33,7 +33,6 @@ jobs:
             --name loanapp \
             --resource-group loanapp \
             --image ${{ secrets.ACR_NAME }}.azurecr.io/loanapp:latest \
-            --environment my-react-app-env \
             --ingress external \
             --target-port 3000 \
             --registry-server ${{ secrets.ACR_NAME }}.azurecr.io \
