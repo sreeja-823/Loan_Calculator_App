@@ -3,8 +3,7 @@ name: Build and Deploy to Azure Container App
 on:
   push:
     branches:
-      - main  # You can replace 'main' with any branch you use for deployment
- 
+      - main  # You can replace 'main' with any branch you use for deployment 
 
 jobs:
   build-and-deploy:
