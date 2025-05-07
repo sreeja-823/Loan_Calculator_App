@@ -3,7 +3,7 @@ name: Build and Deploy to Azure Container App
 on:
   push:
     branches:
-      - master  # Trigger on push to 'master' branch
+      - master  # Triggers on push to the 'master' branch
 
 jobs:
   build-and-deploy:
@@ -17,12 +17,6 @@ jobs:
         uses: azure/login@v1.6.1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      - name: Set Azure Subscription (optional but helpful)
-        run: az account set --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-
-      - name: Debug - List Container App Environments in Resource Group
-        run: az containerapp env list --resource-group loanapp --query "[].name"
 
       - name: Log in to Azure Container Registry (ACR)
         run: az acr login --name ${{ secrets.ACR_NAME }}
@@ -45,3 +39,4 @@ jobs:
             --registry-server ${{ secrets.ACR_NAME }}.azurecr.io \
             --registry-username ${{ secrets.ACR_USERNAME }} \
             --registry-password ${{ secrets.ACR_PASSWORD }}
+            
