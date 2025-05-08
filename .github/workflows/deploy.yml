@@ -30,10 +30,10 @@ jobs:
       - name: Deploy to Azure Container App
         run: |
           az containerapp create \
-            --name loanapp \
-            --resource-group loanapp \
+            --name loancalculatorapp \
+            --resource-group loancalculatorapp \
             --image ${{ secrets.ACR_NAME }}.azurecr.io/loanapp:latest \
-            --environment my-react-app-env \
+            --environment managedEnvironment-loancalculatora-8009 \
             --ingress external \
             --target-port 3000 \
             --registry-server ${{ secrets.ACR_NAME }}.azurecr.io \
